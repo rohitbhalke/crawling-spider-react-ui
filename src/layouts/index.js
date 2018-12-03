@@ -7,6 +7,7 @@ import PageNotFound from './404';
 import $ from 'jquery';
 import WorldMap from '../components/WorldMap'
 import RawTweets from '../components/rawTweets'
+import TweetService from '../services/TweetService'
 
 import Footer from './footer'
 
@@ -19,93 +20,26 @@ export default class Layout extends Component {
     this.enterPanel = this.enterPanel.bind(this);
     this.filterCity = this.filterCity.bind(this);
     this.searchHashtags = this.searchHashtags.bind(this);
-    this.hashTags = [
-        {
-          "count": 1689,
-          "name": "DrainTheSwamp"
-        },
-        {
-          "count": 849,
-          "name": "Emmys"
-        },
-        {
-          "count": 595,
-          "name": "30millionsdamis"
-        },
-        {
-          "count": 595,
-          "name": "justicepourfudji"
-        },
-        {
-          "count": 580,
-          "name": "เรื่องเล่าเช้านี้"
-        },
-        {
-          "count": 555,
-          "name": "Macron"
-        },
-        {
-          "count": 472,
-          "name": "Benalla"
-        },
-        {
-          "count": 411,
-          "name": "Luton"
-        },
-        {
-          "count": 411,
-          "name": "TommyRobinson"
-        },
-        {
-          "count": 401,
-          "name": "JusticeForSantoshKoli"
-        },
-        {
-          "count": 365,
-          "name": "BJP"
-        },
-        {
-          "count": 290,
-          "name": "PrescientInfo"
-        },
-        {
-          "count": 287,
-          "name": "Kavanaugh"
-        },
-        {
-          "count": 275,
-          "name": "BharatBandh"
-        },
-        {
-          "count": 255,
-          "name": "Florence"
-        },
-        {
-          "count": 243,
-          "name": "ClimateAction"
-        },
-        {
-          "count": 231,
-          "name": "Nature"
-        },
-        {
-          "count": 231,
-          "name": "Travel"
-        },
-        {
-          "count": 228,
-          "name": "ข่าวสด"
-        },
-        {
-          "count": 202,
-          "name": "Trump"
-        }
-      ]
-
+    this.fetchHashTags = this.fetchHashTags.bind(this);
+    this.state = {
+      hashTags : []
+    };
+    this.fetchHashTags();
   }
 
   componentDidMount() {
     this.activeNav();
+  }
+
+  fetchHashTags() {
+    let self = this;
+    let state = self.state;
+    TweetService.getHashTags().then(function(response) {
+      state.hashTags = response.data;
+      self.setState({state});
+    }).catch(function(err) {
+      console.log("Error while fetching the hashtags list")
+    })
   }
 
   activeNav() {
@@ -166,10 +100,9 @@ export default class Layout extends Component {
 
   render() {
     let self = this;
-    this.state = {
-      feedbackURL: '',
-      activeKey: '2'
-    }
+    this.state.feedbackURL = '';
+    this.state.activeKey = 2;
+
     return (
       <Grid fluid className="height100">
         <Row className="show-grid">
@@ -187,7 +120,7 @@ export default class Layout extends Component {
                       <Checkbox md={3} className="list-group-item" data-val="nyc">New York</Checkbox>
                       <Checkbox className="list-group-item" data-val="delhi">Delhi</Checkbox>
                       <Checkbox className="list-group-item" data-val="paris">Paris</Checkbox>
-                      <Checkbox className="list-group-item" data-val="mexico">Mexico City</Checkbox>
+                      <Checkbox className="list-group-item" data-val="mexico city">Mexico City</Checkbox>
                       <Checkbox className="list-group-item" data-val="bangkok">Bangkok</Checkbox>
                   </ListGroup>
                 </Panel>
@@ -209,7 +142,7 @@ export default class Layout extends Component {
                   {/*<Panel eventKey="1" bsStyle="primary" onEnter={this.enterPanel}>*/}
                   <ul className="navlist hashtagsgroup list-group">
                     {
-                      self.hashTags.map(function(mapObj, index) {
+                      self.state.hashTags.map(function(mapObj, index) {
                         let dataVal = "#"+mapObj.name;
                         return <div className="list-group-item checkbox">
                           <label title="">

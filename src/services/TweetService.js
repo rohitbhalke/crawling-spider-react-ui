@@ -64,6 +64,23 @@ var TweetService = {
       })
     },
 
+    getHashTags : function() {
+      let host = utility.getHost();
+      let config = {
+        headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Credentials" : true,
+          'Content-Type': 'application/x-www-form-urlencoded'}
+      };
+
+      let query = host+"/tweets/hashtags/list";
+
+      return axios.get(query, config).then(function (data) {
+        return data;
+      }).catch(function (error) {
+        console.log("Error while fetching all tweet count");
+        throw error.response;
+      })
+    },
+
     getLanguageDistribution : function() {
       let host = utility.getHost();
       let config = {
