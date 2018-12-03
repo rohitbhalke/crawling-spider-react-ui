@@ -267,9 +267,9 @@ export default class Analysis extends Component {
           <Grid fluid>
             <Row className="show-grid">
               <WorldMap config={this.state.worldMapConfig}/>
-              <Panel header={<h3>Tweet Volume</h3>} style={{ minHeight: 500 }}>
+              {/*<Panel header={<h3>Tweet Volume</h3>} style={{ minHeight: 500 }}>
                 <ReactHighcharts config={this.state.config}></ReactHighcharts>
-              </Panel>
+              </Panel>*/}
               <Panel header={<h3>Language Wise Distribution</h3>} style={{ minHeight: 200, maxWidth: 500 }}>
               <Pie3D data={languageData}/>
               </Panel>
