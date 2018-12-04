@@ -360,3 +360,8 @@ body {
     white-space: nowrap;
     vertical-align: baseline;
 }
+
+.btn-toolbar {
+    float: right!important;
+    margin-right: 13px;
+}

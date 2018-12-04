@@ -120,7 +120,7 @@ export default class Layout extends Component {
                       <Checkbox md={3} className="list-group-item" data-val="nyc">New York</Checkbox>
                       <Checkbox className="list-group-item" data-val="delhi">Delhi</Checkbox>
                       <Checkbox className="list-group-item" data-val="paris">Paris</Checkbox>
-                      <Checkbox className="list-group-item" data-val="mexico city">Mexico City</Checkbox>
+                      <Checkbox className="list-group-item" data-val="mexico">Mexico City</Checkbox>
                       <Checkbox className="list-group-item" data-val="bangkok">Bangkok</Checkbox>
                   </ListGroup>
                 </Panel>

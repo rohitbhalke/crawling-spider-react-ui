@@ -5,8 +5,10 @@ import Pie3D from 'react-pie3d'
 import axios from 'axios';
 import Select from 'react-select';
 import WorldMap from './WorldMap'
+import WeeklySentiments from "./weeklySentiments"
 import Loader from 'react-loader-spinner'
 import TweetService from "../services/TweetService";
+
 axios.defaults.withCredentials = true;
 
 export default class Analysis extends Component {
@@ -14,55 +16,6 @@ export default class Analysis extends Component {
     constructor() {
         super();
         this.state = {
-            config: {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: ''
-                },
-                credits: {
-                    enabled: false
-                },
-                xAxis: {
-                    title: {
-                        text: 'Date',
-                        style: {
-                            fontWeight: 'bold'
-                        }
-                    }
-                },
-                legend: {
-                    enabled: false
-                },
-                yAxis: {
-                    min: 0,
-                    allowDecimals: false,
-                    title: {
-                        text: '',
-                        style: {
-                            fontWeight: 'bold'
-                        }
-                    }
-                },
-                tooltip: {
-                    enabled: false
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function () {
-                                return this.y;
-                            }
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: ''
-                    }]
-            },
             worldMapConfig : {},
             loading : false,
             languageData : []
@@ -273,6 +226,7 @@ export default class Analysis extends Component {
               <Panel header={<h3>Language Wise Distribution</h3>} style={{ minHeight: 200, maxWidth: 500 }}>
               <Pie3D data={languageData}/>
               </Panel>
+              <WeeklySentiments/>
             </Row>
           </Grid>
         </Panel>

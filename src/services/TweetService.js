@@ -81,6 +81,28 @@ var TweetService = {
       })
     },
 
+    getWeekwiseSentiments(city, topic) {
+      let host = utility.getHost();
+      let config = {
+        headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Credentials" : true,
+          'Content-Type': 'application/x-www-form-urlencoded'}
+      };
+
+      let query = host+"/tweets/cityTopicWeeklySentiments?";
+      city = city || "nyc";
+      topic = topic || "infra";
+
+      query += "city="+city;
+      query += "&topic="+topic;
+
+      return axios.get(query, config).then(function (data) {
+        return data;
+      }).catch(function (error) {
+        console.log("Error while fetching all tweet count");
+        throw error.response;
+      })
+    },
+
     getLanguageDistribution : function() {
       let host = utility.getHost();
       let config = {
