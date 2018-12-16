@@ -55,6 +55,9 @@ var TweetService = {
         query += "&search=" + encodeURIComponent(hashtags);
       }
 
+      if(obj && obj.search && obj.search.length) {
+        query += "&search=" + obj.search;
+      }
 
       return axios.get(query, config).then(function (data) {
         return data;

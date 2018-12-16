@@ -365,3 +365,17 @@ body {
     float: right!important;
     margin-right: 13px;
 }
+
+.Ripple-parent {
+    height: 430px;
+}
+
+.Ripple-parent img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.card {
+    float: left;
+    margin-right: 30px;
+}

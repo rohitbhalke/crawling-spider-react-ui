@@ -5,6 +5,7 @@ import Pie3D from 'react-pie3d'
 import axios from 'axios';
 import Select from 'react-select';
 import WorldMap from './WorldMap'
+import HashTagCount from './hashTagCount'
 import WeeklySentiments from "./weeklySentiments"
 import Loader from 'react-loader-spinner'
 import TweetService from "../services/TweetService";
@@ -223,10 +224,11 @@ export default class Analysis extends Component {
               {/*<Panel header={<h3>Tweet Volume</h3>} style={{ minHeight: 500 }}>
                 <ReactHighcharts config={this.state.config}></ReactHighcharts>
               </Panel>*/}
-              <Panel header={<h3>Language Wise Distribution</h3>} style={{ minHeight: 200, maxWidth: 500 }}>
+              <Panel header={<h3>Language Wise Distribution</h3>} style={{ minHeight: 200, maxWidth: 1000 }}>
               <Pie3D data={languageData}/>
               </Panel>
               <WeeklySentiments/>
+              <HashTagCount/>
             </Row>
           </Grid>
         </Panel>

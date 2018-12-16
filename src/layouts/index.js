@@ -3,6 +3,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import { Grid, Row, Col, Panel, PanelGroup, ListGroup, Label, Checkbox,  FieldGroup } from 'react-bootstrap';
 import Header from './header';
 import Analysis from '../components/analysis';
+import AboutUs from '../components/aboutUs'
 import PageNotFound from './404';
 import $ from 'jquery';
 import WorldMap from '../components/WorldMap'
@@ -17,7 +18,7 @@ export default class Layout extends Component {
     super(props);
     this.clickHandler = this.clickHandler.bind(this);
     this.selectedNav = this.selectedNav.bind(this);
-    this.enterPanel = this.enterPanel.bind(this);
+    this.enterAboutUS = this.enterAboutUS.bind(this);
     this.filterCity = this.filterCity.bind(this);
     this.searchHashtags = this.searchHashtags.bind(this);
     this.fetchHashTags = this.fetchHashTags.bind(this);
@@ -93,8 +94,8 @@ export default class Layout extends Component {
     this.setState({ activeKey });
   }
 
-  enterPanel() {
-    $('div.panel-collapse').removeClass('in');
+  enterAboutUS() {
+    window.location = "aboutUs"
     // eventKey is not getting thus removing 'in' class.
   }
 
@@ -138,7 +139,7 @@ export default class Layout extends Component {
                 </Panel>
               </PanelGroup>
               <PanelGroup defaultActiveKey={this.state.activeKey} accordion onSelect={this.selectedNav}>
-                <Panel header="Hastags" eventKey="2" bsStyle="primary" onEnter={this.enterPanel} className="hashtags">
+                <Panel header="Hashtags" eventKey="2" bsStyle="primary" onEnter={this.enterPanel} className="hashtags">
                   {/*<Panel eventKey="1" bsStyle="primary" onEnter={this.enterPanel}>*/}
                   <ul className="navlist hashtagsgroup list-group">
                     {
@@ -155,77 +156,17 @@ export default class Layout extends Component {
                     }
                   </ul>
 
-                  {/*<ListGroup componentClass="ul" style={{marginBottom:'0'}} className="navlist languagegroup">
-                    <Checkbox className="list-group-item" data-val="#DrainTheSwamp">DrainTheSwamp super
-                    </Checkbox>
-                    <span className="badge badge-primary badge-pill">1689</span>
-                    <Checkbox className="list-group-item" data-val="#Emmys">Emmys
-                      <span className="badge badge-primary badge-pill">849</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#30millionsdamis">30millionsdamis
-                      <span className="badge badge-primary badge-pill">595</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#justicepourfudji">justicepourfudji
-                      <span className="badge badge-primary badge-pill">595</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#เรื่องเล่าเช้านี้">เรื่องเล่าเช้านี้
-                      <span className="badge badge-primary badge-pill">580</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#Macron้">Macron้
-                      <span className="badge badge-primary badge-pill">555</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#Benalla">Benalla
-                      <span className="badge badge-primary badge-pill">472</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#Luton">Luton
-                      <span className="badge badge-primary badge-pill">411</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#TommyRobinson">TommyRobinson
-                      <span className="badge badge-primary badge-pill">411</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#JusticeForSantoshKoli">JusticeForSantoshKoli
-                      <span className="badge badge-primary badge-pill">401</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#BJP">BJP
-                      <span className="badge badge-primary badge-pill">365</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#PrescientInfo">PrescientInfo
-                      <span className="badge badge-primary badge-pill">290</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#Kavanaugh">Kavanaugh
-                      <span className="badge badge-primary badge-pill">287</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#BharatBandh">BharatBandh
-                      <span className="badge badge-primary badge-pill">14</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#Florence">Florence
-                      <span className="badge badge-primary badge-pill">275</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#ClimateAction">ClimateAction
-                      <span className="badge badge-primary badge-pill">255</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#ClimateAction">ClimateAction
-                      <span className="badge badge-primary badge-pill">243</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#Nature">Nature
-                      <span className="badge badge-primary badge-pill">231</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#Travel">Travel
-                      <span className="badge badge-primary badge-pill">231</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#ข่าวสด">ข่าวสด
-                      <span className="badge badge-primary badge-pill">228</span>
-                    </Checkbox>
-                    <Checkbox className="list-group-item" data-val="#Trump">Trump
-                      <span className="badge badge-primary badge-pill">202</span>
-                    </Checkbox>
-                  </ListGroup>*/}
+                </Panel>
+              </PanelGroup>
+              <PanelGroup defaultActiveKey={this.state.activeKey} accordion onSelect={this.selectedNav}>
+                <Panel header="About Us" eventKey="2" bsStyle="primary" onEnter={this.enterAboutUS} className="About Us">
+                  <Link to='/aboutUs'/>
                 </Panel>
               </PanelGroup>
             </Panel>
           </Col>
           <Col md={9}>
-            <Row className="show-grid">
+            <Row className="show-grid" id="hideMe">
               <Col md={6} className="right-padding-zero">
                   <Link to='/RawTweets' className="list-group-item" onClick={this.clickHandler}>
                     What people are talking about?
@@ -240,6 +181,7 @@ export default class Layout extends Component {
             <Switch>
               <Route path='/worldMap' component={WorldMap} ref={'worldMap'}/>
               <Route path='/analysis' component={Analysis} />
+              <Route path="/aboutUs" component={AboutUs} />
               <Route path='/'  component={RawTweets} ref={'rawTweets'}/>
               <Route path="*" component={PageNotFound} />
               <Route

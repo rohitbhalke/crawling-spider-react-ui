@@ -9,6 +9,8 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import products from '../data/rawData'
 import TweetsFormatted from './tweetFormatted'
 import TweetService from "../services/TweetService";
+import { Typeahead } from "react-bootstrap-typeahead";
+
 
 export default class RawTweets extends Component {
 
@@ -27,6 +29,32 @@ export default class RawTweets extends Component {
     this.getSelectors = this.getSelectors.bind(this);
     this.filterData = this.filterData.bind(this);
     this.getQueryObject = this.getQueryObject.bind(this);
+    this.search = this.search.bind(this);
+  }
+
+  search(selector) {
+    let searchField ;
+    if(Array.isArray(selector) && selector[0]) {   // Selected via mouse key button
+      searchField = selector[0]
+      let queryObject = this.getQueryObject();
+      queryObject.search = searchField;
+      this.fetchData(queryObject);
+
+      this.state.seachField = searchField;
+    }
+    else if(selector && selector.which && selector.which == 13) {   // enter is pressed
+      searchField = selector.target.value;
+      let queryObject = this.getQueryObject();
+      queryObject.search = searchField;
+      this.fetchData(queryObject);
+
+      this.state.seachField = searchField;
+    }
+    else {
+      selector.stopImmediatePropagation && selector.stopImmediatePropagation();
+    }
+
+
   }
 
   getSelectors() {
@@ -53,6 +81,8 @@ export default class RawTweets extends Component {
     var cities = this.cityGroup.querySelectorAll('input');
     var languages = this.langGroup.querySelectorAll('input');
     var hashtags = this.hashTags.querySelectorAll('input');
+    let searchField = document.querySelector(".rbt-input-main.form-control.rbt-input ");
+
     var selectedCities = [];
     var selectedLanguages = [];
     var selectedHashtags = [];
@@ -80,6 +110,9 @@ export default class RawTweets extends Component {
       selectedCities,
       selectedHashtags
     };
+    if(searchField && searchField.value) {
+      queryObject.searchField = searchField.value;
+    }
 
     return queryObject;
   }
@@ -104,11 +137,19 @@ export default class RawTweets extends Component {
 
     queryObject.start = selected;
     this.fetchData(queryObject);
+    this.state.seachField = "";
+
+  }
+
+  componentDidUpdate() {
+    let searchField = document.querySelector(".rbt-input-main.form-control.rbt-input ");
+    if(searchField)
+      searchField.value = this.state && this.state.seachField || "";
   }
 
   fetchData(queryObj) {
     let self = this;
-
+    let searchField = self.state.seachField || "";
     self.setState({
       loading : true
     });
@@ -124,7 +165,8 @@ export default class RawTweets extends Component {
           pageCount,
           paginationActive : queryObj.start
         },
-        loading : false
+        loading : false,
+        searchField
       });
       console.log(response);
     }).catch(function (err) {
@@ -178,6 +220,15 @@ export default class RawTweets extends Component {
                          containerClassName={"pagination"}
                          subContainerClassName={"pages pagination"}
                          activeClassName={"active"} />
+
+          <Typeahead
+            labelKey="name"
+            placeholder="Search ..."
+            options={[ 'Barak Obama', 'Donald Trump', 'Narendra Modi', 'Rahul Gandhi', 'Arvind Kejriwal']}
+            onChange = {this.search}
+            onKeyDown = {this.search}
+            value = "Moasss"
+          />
           {tweets.map(function(i) {
             return <TweetsFormatted data={i}/>
           })}

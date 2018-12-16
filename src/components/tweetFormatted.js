@@ -29,6 +29,7 @@ export default class RawTweets extends Component {
     const location = data && data["user.location"];
     const instaGramLink = data && data["user.entities.url.urls.expanded_url"] || "";
     const handle = data && data["user.screen_name"] || "";
+    const sentiment = data && data.sentiment && data.sentiment.toUpperCase() || "";
     var divStyle = {
       backgroundImage: 'url(' + profileImage + ')'
     };
@@ -66,7 +67,10 @@ export default class RawTweets extends Component {
         <span className="following-count">
     Following
     <span className="count-meta">{following}</span>
-
+    </span>
+          <span className="following-count">
+    Sentiment
+    <span className="count-meta">{sentiment}</span>
     </span>
         </div>
         <br/>
